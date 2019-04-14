@@ -1,0 +1,20 @@
+import torch
+from tensorboardX import SummaryWriter
+import torch.nn as nn
+
+x = torch.tensor([1.0,1.0,1.0,1.0],requires_grad=True)
+
+class Net(nn.module):
+    def __init__(self):
+        super(Net, self).__init__()
+
+    def forward(self,x):
+        y = x ** 2
+        z = y.sum()
+        return z
+
+net = Net()
+
+writer = SummaryWriter(log_dir='./log')
+with writer:
+    writer.add_graph(net,(x))
